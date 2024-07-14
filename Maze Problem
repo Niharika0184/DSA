@@ -1,0 +1,69 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+bool issafe(int arr[][3],int row,int col,int srcx,int srcy,vector<vector<bool> > &visited){
+  if(((srcx>=0 && srcx<row)&&(srcy>=0 && srcy<col))&& (arr[srcx][srcy]==1) &&(visited[srcx][srcy]==false)){
+    return true;
+  }
+  else
+    return false;
+}
+void quiz(int arr[3][3],int row,int col,vector<vector<bool> >visited,int srcx,int srcy,string output,vector<string> &ans){
+  if(srcx==row-1 && srcy==col-1){
+    ans.push_back(output);
+    return;
+  }
+  //upward
+  if(issafe(arr,row,col,srcx-1,srcy,visited)){
+  visited[srcx-1][srcy]=true;
+  quiz(arr,row,col,visited,srcx-1,srcy,output+'U',ans);
+  visited[srcx-1][srcy]=false;
+  }
+  //downward
+  if(issafe(arr,row,col,srcx+1,srcy,visited)){
+    visited[srcx+1][srcy]=true;
+    quiz(arr,row,col,visited,srcx+1,srcy,output+'D',ans);
+    visited[srcx+1][srcy]=false;
+    }
+  //left
+  if(issafe(arr,row,col,srcx,srcy-1,visited)){
+    visited[srcx][srcy-1]=true;
+    quiz(arr,row,col,visited,srcx,srcy-1,output+'L',ans);
+    visited[srcx][srcy-1]=false;
+    }
+  //right
+  if(issafe(arr,row,col,srcx,srcy+1,visited)){
+    visited[srcx][srcy+1]=true;
+    quiz(arr,row,col,visited,srcx,srcy+1,output+'R',ans);
+    visited[srcx][srcy+1]=false;
+    }
+
+
+}
+int main() {
+int arr[3][3]={{1,0,0},
+               {0,1,1},
+               {0,1,1}};
+  int row=3;
+  int col=3;
+  vector<vector<bool> >visited(row , vector<bool>(col,false));
+  visited[0][0]=true;
+  string output="";
+  vector<string>ans;
+
+  int srcx=0;
+  int srcy=0;
+  quiz(arr,row,col,visited,srcx,srcy,output,ans);
+  if(ans.size()==0){
+    cout<<"NO PATH FOUND";
+    return 0;
+  }
+  cout<<"THE PATHS ARE:";
+    for(auto i:ans){
+    cout<<i<<" ";
+    }
+  
+  cout<<endl;
+return 0;
+
+}
