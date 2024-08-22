@@ -41,6 +41,7 @@ void insertAtTail( Node* &head,Node* &tail, int data){
 int findlen(Node*&head){
   int i=0;
   while(head->next!= NULL){
+    head=head->next;
     i++;
   }
   return i;
