@@ -1,0 +1,61 @@
+#include <iostream>
+
+using namespace std;
+class Stack{
+  public:
+       int *arr;
+       int size;
+       int top;
+  Stack(int size){
+    arr=new int[size];
+    this->size=size;
+    top=-1;
+      }
+
+void topush(int data){
+  if(size-top>1){
+    
+    top++;
+    arr[top]=data;
+  }
+  else{
+    cout<<"Stack Overflow";
+  }
+}
+void topop(){
+  if(top==-1){
+    cout<<"Stack Underflow";
+    
+  }
+  else{
+    top--;
+  }
+}
+int getsize()
+{
+  return top+1;
+}
+bool isEmpty(){
+  if(top==-1){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+int gettop(){
+  return arr[top];
+}
+};
+int main() {
+ Stack s(4);
+ s.topush(3);
+ s.topush(6);
+ s.topush(9);
+ s.topush(12);
+while(!s.isEmpty()){
+  cout<<s.gettop()<<" ";
+s.topop();
+}
+    return 0;
+}
