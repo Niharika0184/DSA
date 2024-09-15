@@ -1,0 +1,34 @@
+
+#include <iostream>
+#include<stack>
+using namespace std;
+void solve(stack<int>&s, int &totalsize,int to){
+    //base case
+    if(totalsize==0){
+        s.push(to);
+        return;
+    }
+    int temp=s.top();
+    s.pop();
+     totalsize=s.size();
+    solve(s,totalsize,to);
+    s.push(temp);
+}
+int main() {
+   stack<int>s;
+   s.push(1);
+   s.push(2);
+   s.push(3);
+   s.push(4);
+   s.push(5);
+   int to=s.top();
+   s.pop();
+   int totalsize=s.size();
+   solve(s,totalsize,to);
+   while(!s.empty()){
+       cout<<s.top()<<" ";
+       s.pop();
+   }
+
+    return 0;
+}
